@@ -1,0 +1,110 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.extend-height{
+  min-height: 72vh;
+}
+
+
+/* Buttons  */
+
+.btn{
+  min-width: 100px;
+  display: inline;
+  padding: 0.7rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 2%;
+  margin-bottom: 1rem;
+}
+
+.btn-sm{
+padding: 0.5rem;
+}
+
+.btn-primary{
+background-color: var(--primary-color)
+}
+.btn-dark{
+background-color: var(--dark-color)
+}
+
+.btn-light{
+background-color: var(--light-color);
+color: black;
+}
+
+
+/* Form Control  */
+
+.form-heading {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form {
+display: flex;
+flex-direction: column;
+width: 70%;
+height: fit-content;
+padding: 0 3rem 2rem 3rem;
+margin: 2rem auto 0;
+}
+
+.form-label{
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  }
+  
+  .form-input{
+  width: 100%;
+  padding: 0.7rem;
+  margin: 0 auto;
+  text-indent: 12px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 2%;
+  margin-bottom: 1rem;
+  background-color : var(--light-color); 
+  }
+
+  .form-input:focus{
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.4);
+  }
+
+  .form-submit{
+    margin-top: 0.8rem;
+  }
+  .form-link{
+    border-bottom: 2px solid var(--primary-font-color);
+    font-weight: 600;
+  }
+
+  .form-link:hover {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color)
+  
+  }
+
+  .card img {
+    max-width: 100%;
+    height: auto;
+  }

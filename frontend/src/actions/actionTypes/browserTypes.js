@@ -1,0 +1,2 @@
+export const TOGGLE_SIDENAV = "TOGGLE_SIDENAV";
+export const FIX_BIGSCREEN = "FIX_BIGSCREEN";
