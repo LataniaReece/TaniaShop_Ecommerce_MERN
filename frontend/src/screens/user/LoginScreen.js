@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from '../components/Layout/Alert'
-import { login } from '../actions/userActions'
+import Alert from '../../components/Layout/Alert'
+import { login } from '../../actions/userActions'
 
 
 const LoginScreen = ({ location, history }) => {

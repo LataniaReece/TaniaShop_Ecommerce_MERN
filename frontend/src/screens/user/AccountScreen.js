@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
+import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import AccountNav from '../components/AccountNav'
-import { listMyOrders } from '../actions/orderActions'
-import Alert from '../components/Layout/Alert'
-import Spinner from '../components/Layout/Spinner'
-
+import AccountNav from '../../components/AccountNav'
+import { listMyOrders } from '../../actions/orderActions'
+import Alert from '../../components/Layout/Alert'
+import Spinner from '../../components/Layout/Spinner'
 
 
 const AccountScreen = ({ history }) => {
@@ -13,7 +13,7 @@ const AccountScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const orderListMy = useSelector(state => state.orderListMy)
-    const { loading, error, orders } = orderListMy
+    const { loading, orders } = orderListMy
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -25,7 +25,8 @@ const AccountScreen = ({ history }) => {
         }
 
         dispatch(listMyOrders())
-    }, [userInfo, dispatch])
+    }, [userInfo, dispatch, history])
+
 
     return (
         <>
@@ -36,25 +37,27 @@ const AccountScreen = ({ history }) => {
                         <div class="info">
                             <AccountNav />
                             <hr width="1" size="500" />
-                            <div class="order-list">
+                            <div class="table-list">
                                 {orders ? (
-                                    <table>
+                                    <table className="table">
                                         <thead>
-                                            <th>Order Number</th>
-                                            <th>Date</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th></th>
+                                            <tr>
+                                                <th>Order Number</th>
+                                                <th>Date</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             {orders.map((order) => {
                                                 return <tr>
-                                                    <td>{order._id}</td>
-                                                    <td>{order.createdAt}</td>
-                                                    <td>{order.totalPrice}</td>
-                                                    <td>{order.isDelivered ? 'Delivered' : 'Processing'}</td>
+                                                    <td data-label="Order Number">{order._id}</td>
+                                                    <td data-label="Date">{moment(order.createdAt).format('MM-DD-YYYY')}</td>
+                                                    <td data-label="Price">${order.totalPrice.toFixed(2)}</td>
+                                                    <td data-label="Status">{order.isDelivered ? 'Delivered' : 'Processing'}</td>
                                                     <td>
-                                                        <div class="btn btn-primary btn-sm order-details-btn">Details</div>
+                                                        <Link to={`/order/${order._id}`} class="btn btn-dark btn-sm btn-stable-hover">Details</Link>
                                                     </td>
                                                 </tr>
                                             })}

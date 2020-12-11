@@ -29,7 +29,11 @@
   font-size: 1rem;
   cursor: pointer;
   border-radius: 2%;
-  margin-bottom: 1rem;
+}
+
+.btn-xsm{
+padding: 0.1rem;
+min-width: 30px;
 }
 
 .btn-sm{
@@ -39,6 +43,15 @@ padding: 0.5rem;
 .btn-primary{
 background-color: var(--primary-color)
 }
+
+.btn-info {
+  background-color:#31708f;
+}
+
+.btn-danger{
+  background-color: #B22222;
+}
+
 .btn-dark{
 background-color: var(--dark-color)
 }
@@ -47,6 +60,8 @@ background-color: var(--dark-color)
 background-color: var(--light-color);
 color: black;
 }
+
+
 
 
 /* Form Control  */
@@ -72,6 +87,10 @@ margin: 2rem auto 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
   }
+
+.checkbox span{
+  margin-right: 10px;
+}
   
   .form-input{
   width: 100%;

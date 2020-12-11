@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     return (
-        <ul class=" container checkout-nav">
+        <ul className=" container checkout-nav">
 
             {step1 ? (
                 <li><Link to="/login">Login</Link></li>

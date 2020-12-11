@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import AccountNav from '../components/AccountNav'
-import { listMyOrders } from '../actions/orderActions'
-import Alert from '../components/Layout/Alert'
-import Spinner from '../components/Layout/Spinner'
-import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import AccountNav from '../../components/AccountNav'
+import Alert from '../../components/Layout/Alert'
+import Spinner from '../../components/Layout/Spinner'
+import { listMyOrders } from '../../actions/orderActions'
+import { getUserDetails, updateUserProfile } from '../../actions/userActions'
 
 
 

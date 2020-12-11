@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from '../components/Layout/Alert'
-import { register } from '../actions/userActions'
+import Alert from '../../components/Layout/Alert'
+import { register } from '../../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
     const [name, setName] = useState('')

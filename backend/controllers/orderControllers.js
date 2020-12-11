@@ -48,7 +48,6 @@ export const createNewOrder = async (req, res) => {
         const createdOrder = await order.save()
 
         res.status(201).json(createdOrder)
-        console.log(createdOrder)
 
     } catch (error) {
         res.status(500).json({ message: 'Server Error' })
@@ -81,9 +80,10 @@ export const getOrderById = async (req, res) => {
 }
 
 // @desc    Get logged in user orders
-// @route   POST /api/orders/myorders
+// @route   GET /api/orders/myorders
 // @access  Private
 export const getMyOrders = async (req, res) => {
+
 
     try {
         const orders = await Order.find({ user: req.user._id })
@@ -93,6 +93,52 @@ export const getMyOrders = async (req, res) => {
             res.json(orders)
         }
     } catch (error) {
+        res.status(500).json({ message: 'Server Error' })
+    }
+
+}
+
+// @desc    Get all orders
+// @route   GET /api/orders
+// @access  Private/Admin
+export const getOrders = async (req, res) => {
+
+    const pageSize = 2
+    const page = Number(req.query.pageNumber) || 1
+
+    try {
+        const count = await Order.countDocuments({})
+        const orders = await Order.find({}).populate('user', 'id name').limit(pageSize).skip(pageSize * (page - 1))
+
+        if (!orders || orders.length === 0) {
+            return res.status(404).json({ message: 'No orders found' })
+        } else {
+            res.json({ orders, page, pages: Math.ceil(count / pageSize) })
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error' })
+    }
+
+}
+
+// @desc    Update order to be delivered
+// @route   GET /api/orders/:id/deliver
+// @access  Private/Admin
+export const updateOrderToDelivered = async (req, res) => {
+
+    try {
+        const order = await Order.findById(req.params.id)
+        if (!order) {
+            return res.status(404).json({ message: 'No order found' })
+        } else {
+            order.isDelivered = true
+            order.deliveredAt = Date.now()
+
+            const updatedOrder = await order.save()
+            res.json(updatedOrder)
+        }
+    } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Server Error' })
     }
 

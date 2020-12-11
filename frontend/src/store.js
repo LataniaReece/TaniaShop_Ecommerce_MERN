@@ -1,31 +1,46 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 // Reducers
 import { browserReducer } from './reducers/browserReducers'
 import { cartReducer } from './reducers/cartReducers';
-import { orderCreateReducer, orderDetailsReducer, orderListMyReducer } from './reducers/orderReducers';
-import { productDetailReducer, productsListReducer } from './reducers/productReducers'
+import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListMyReducer, orderListReducer } from './reducers/orderReducers';
+import { productCreateReducer, productDeleteReducer, productDetailReducer, productReviewCreateReducer, productsListByCategoryReducer, productsListReducer, productsRecentListReducer, productTopReducer, productUpdateReducer } from './reducers/productReducers'
 import {
+    userDeleteReducer,
     userDetailsReducer,
+    userListReducer,
     userLoginReducer,
     userRegisterReducer,
-    userUpdateProfileReducer
+    userUpdateProfileReducer,
+    userUpdateReducer
 } from './reducers/userReducers';
 
 const reducer = combineReducers({
     browserState: browserReducer,
     productList: productsListReducer,
+    productRecentList: productsRecentListReducer,
+    productCategoryList: productsListByCategoryReducer,
     productDetail: productDetailReducer,
+    productDelete: productDeleteReducer,
+    productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productReviewCreate: productReviewCreateReducer,
+    productTopList: productTopReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
-    orderListMy: orderListMyReducer
+    orderListMy: orderListMyReducer,
+    orderList: orderListReducer,
+    orderDeliver: orderDeliverReducer,
 })
 
 

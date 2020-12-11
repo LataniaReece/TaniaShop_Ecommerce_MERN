@@ -1,22 +1,27 @@
 export const CategoryItems = [
   {
     title: 'Clothing',
-    path: '/clothing',
+    path: '/product/category/clothing',
     cName: 'dropdown-link'
   },
   {
     title: 'Technology',
-    path: '/technology',
+    path: '/product/category/technology',
     cName: 'dropdown-link'
   },
   {
-    title: 'Self-Care',
-    path: '/selfcare',
+    title: 'Home Decor',
+    path: '/product/category/Home Decor',
     cName: 'dropdown-link'
   },
   {
     title: 'Books',
-    path: '/books',
+    path: '/product/category/books',
     cName: 'dropdown-link'
-  }
+  },
+  {
+    title: 'Toys',
+    path: '/product/category/toys',
+    cName: 'dropdown-link'
+  },
 ];

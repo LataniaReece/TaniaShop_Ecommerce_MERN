@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from '../components/Layout/Alert'
-import Spinner from '../components/Layout/Spinner'
-import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import Alert from '../../components/Layout/Alert'
+import Spinner from '../../components/Layout/Spinner'
+import { getUserDetails, updateUserProfile } from '../../actions/userActions'
 
 const ProfileUpdateScreen = ({ history }) => {
     const [name, setName] = useState('')

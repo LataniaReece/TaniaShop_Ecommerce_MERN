@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import Spinner from '../components/Layout/Spinner'
+import Spinner from '../../components/Layout/Spinner'
+import Meta from '../../components/Layout/Meta'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 
@@ -28,6 +29,7 @@ const AuthScreen = ({ history, location }) => {
                 <Spinner />
             ) : (
                     <>
+                        <Meta title='Sign In / Register' />
                         <LoginScreen />
                         <hr className="vertical" />
                         <RegisterScreen />

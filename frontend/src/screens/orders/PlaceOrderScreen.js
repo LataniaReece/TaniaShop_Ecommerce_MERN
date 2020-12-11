@@ -3,10 +3,12 @@ import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import CheckoutSteps from '../components/CheckoutSteps'
-import Alert from '../components/Layout/Alert'
-import { createOrder } from '../actions/orderActions'
-import { savePaymentMethod } from '../actions/cartActions'
+import CheckoutSteps from '../../components/CheckoutSteps'
+import Alert from '../../components/Layout/Alert'
+import { createOrder } from '../../actions/orderActions'
+import PriceSummary from '../../components/PriceSummary'
+import Meta from '../../components/Layout/Meta'
+import SmallProductItem from '../../components/SmallProductItem'
 
 const PlaceOrderScreen = ({ history }) => {
     const [message, setMessage] = useState('')
@@ -80,7 +82,6 @@ const PlaceOrderScreen = ({ history }) => {
     }
 
     const payPalSelectedHandler = (payPalValue) => {
-        console.log('hello')
         setPaymentMethod(payPalValue)
         if (!document.getElementById("paypal-script")) {
             addPayPalScript()
@@ -89,7 +90,6 @@ const PlaceOrderScreen = ({ history }) => {
     }
 
     const nonPayPalSelectedHandler = (nonPayPalValue) => {
-        console.log('bye')
         setPaymentMethod(nonPayPalValue)
         setShowPayPalButtons(false)
     }
@@ -132,17 +132,18 @@ const PlaceOrderScreen = ({ history }) => {
 
     return (
         <>
+            <Meta title='Place Order' />
             <CheckoutSteps step1 step2 step3 />
             <section className="container place-order-grid">
                 <div className="order-review">
 
                     <div className="order-info">
-                        <h4>Shipping</h4>
-                        <p>Address: {cart.shippingAddress.address}. {' '} {cart.shippingAddress.city}, {' '} {cart.shippingAddress.postalCode}, {' '} {cart.shippingAddress.country}</p>
+                        <h4 className="section-heading">Shipping</h4>
+                        <p> <strong>Address: </strong>{cart.shippingAddress.address}. {' '} {cart.shippingAddress.city}, {' '} {cart.shippingAddress.postalCode}, {' '} {cart.shippingAddress.country}</p>
                     </div>
 
                     <div className="select-payment">
-                        <h4>Select Payment Method</h4>
+                        <h4 className="section-heading">Select Payment Method</h4>
                         {message ? <Alert type="danger">{message}</Alert> : ''}
                         {
                             payPalPaid ? (
@@ -153,7 +154,7 @@ const PlaceOrderScreen = ({ history }) => {
                             ) : (
                                     <div className="pay-content">
                                         <form className="form">
-                                            <label for="PayPal">PayPal</label>
+                                            <label htmlFor="PayPal">PayPal</label>
                                             <input
                                                 type="radio"
                                                 id="PayPal"
@@ -161,7 +162,7 @@ const PlaceOrderScreen = ({ history }) => {
                                                 value="PayPal"
                                                 onChange={(e) => payPalSelectedHandler(e.target.value)}
                                             />
-                                            <label for="Stripe">Stripe</label>
+                                            <label htmlFor="Stripe">Stripe</label>
                                             <input
                                                 type="radio"
                                                 id="Stripe"
@@ -189,39 +190,19 @@ const PlaceOrderScreen = ({ history }) => {
                     {cart.cartItems.length === 0 ? <Alert></Alert>
                         : (
                             <div className="order-info">
-                                <h4>Order Items </h4>
-                                {cart.cartItems.map((item, index) => {
-                                    return <div className="item" key={index}>
-                                        <Link to={`/product/${item.productId}`} className="img-link"><img src={item.image} alt="" /></Link>
-                                        <Link to={`/product/${item.productId}`} className="title"><p >{item.name}</p></Link>
-                                        <p className="item-price">{item.qty} x ${item.price} = ${(item.qty * item.price).toFixed(2)}</p>
-                                    </div>
-
-                                })}
+                                <h4 className="section-heading">Order Items </h4>
+                                {cart.cartItems.map(item => {
+                                    return <SmallProductItem cart={false} key={item.productId} item={item} showQty={false} />
+                                })
+                                }
                             </div>
 
                         )
                     }
                 </div>
-
-                <div className="order-payment-summary">
-                    <h4>Order Summary</h4>
-                    <div className="price-summary">
-                        <p className="price-type">Items: </p>
-                        <p className="price">${cart.itemsPrice}</p>
-                    </div>
-                    <div className="price-summary">
-                        <p className="price-type">Shipping: </p>
-                        <p className="price">${cart.shippingPrice}</p>
-                    </div>
-                    <div className="price-summary">
-                        <p className="price-type">Tax: </p>
-                        <p className="price">${cart.taxPrice}</p>
-                    </div>
-                    <div className="price-summary">
-                        <p className="price-type">Total: </p>
-                        <p className="price">${cart.totalPrice}</p>
-                    </div>
+                <div className="price-breakdown">
+                    <h4 className="section-heading">Order Summary</h4>
+                    <PriceSummary obj={cart} />
                     {error && <Alert type="danger">{error}</Alert>}
                     {orderButtonEnabled ? (
                         <div className={`btn btn-dark ${cart.cartItems === 0 ? 'disabled' : ''}`} onClick={placeOrderHandler} >Place Order</div>
@@ -233,6 +214,7 @@ const PlaceOrderScreen = ({ history }) => {
                             </>
                         )}
                 </div>
+
             </section>
         </>
 
