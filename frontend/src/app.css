@@ -146,7 +146,7 @@ h3{
   background-repeat: no-repeat;
   background-size: cover;
  padding-bottom: 1rem; 
-  margin-top: 3rem;
+  margin-top: 4rem;
   min-height: 350px;
   height: 70vh;
   overflow: hidden;
@@ -194,6 +194,18 @@ font-weight: 600;
   margin-left: 0.5rem;
   position: absolute;
   padding-top: 10px;
+}
+
+@media screen and (max-width:1400px){
+  .newly-added{
+    height: 60vh;
+  }
+}
+
+@media screen and (max-width:1200px){
+  .newly-added{
+    height: 40%;
+  }
 }
 
 /*============================================= Recently Viewed ============================================= */

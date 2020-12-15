@@ -13,10 +13,8 @@ const SideNav = () => {
     const browserState = useSelector(state => state.browserState)
     const { sideNavOpen } = browserState
 
-
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-
 
     const closeSidenavHandler = () => {
         dispatch({ type: TOGGLE_SIDENAV })

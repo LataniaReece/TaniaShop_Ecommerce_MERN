@@ -79,7 +79,7 @@ const ShippingScreen = ({ history }) => {
                             className="form-input"
                             type="text"
                             name="country"
-                            placeholder="Confirm country"
+                            placeholder="Enter country"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />
