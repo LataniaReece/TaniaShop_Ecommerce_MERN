@@ -136,7 +136,7 @@ const ProductScreen = ({ match, history }) => {
                                         <button className="btn btn-dark">Submit</button>
                                     </form>
                                 ) : (
-                                        <Alert type="info">Please <Link to="/auth">Log In</Link> to write a product review!</Alert>
+                                        <Alert type="info">Please <Link to="/auth" className="alert-link">Log In</Link> to write a product review!</Alert>
                                     )}
 
                             </div>

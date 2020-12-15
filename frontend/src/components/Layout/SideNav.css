@@ -44,13 +44,25 @@
     color: lightseagreen;
 }
 
+
+
+.side-nav-header{
+    display: flex;
+    width: 100;
+    justify-content: space-between;
+}
+
+.side-nav-header .navbar__logo a{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.side-nav-header .navbar__logo a:focus{
+   color: var(--primary-color)
+}
+
 .close-sidenav{
-    color: #333;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 12px;
-    margin-top: 5px;
     font-size: 1.4rem;
     cursor: pointer;
 }
+

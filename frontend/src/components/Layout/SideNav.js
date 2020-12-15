@@ -24,6 +24,11 @@ const SideNav = () => {
 
     return (
         <nav className={sideNavOpen ? 'sidenav active' : 'sidenav'}>
+            <div className="side-nav-header">
+                <div className="navbar__logo"><a href="/">Shop Latania</a></div>
+                <div className="close-sidenav" onClick={closeSidenavHandler}><i className="fas fa-times"></i></div>
+
+            </div>
             <ul>
                 <Route render={({ history }) => <SearchBox history={history} />} />
                 <Dropdown
@@ -47,7 +52,6 @@ const SideNav = () => {
                 }
                 <li><Link to="/cart" onClick={closeSidenavHandler}>Cart</Link></li>
             </ul>
-            <div className="close-sidenav" onClick={closeSidenavHandler}><i className="fas fa-times"></i></div>
         </nav>
     )
 }
