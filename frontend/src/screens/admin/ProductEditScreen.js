@@ -13,6 +13,8 @@ const ProductEditScreen = ({ match, history }) => {
 
     const productId = match.params.id
 
+    const [message, setMessage] = useState('')
+
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [image, setImage] = useState('')
@@ -59,6 +61,7 @@ const ProductEditScreen = ({ match, history }) => {
     }, [dispatch, history, productId, product, successUpdate, userInfo])
 
     const uploadFileHandler = async (e) => {
+        setMessage('')
         const file = e.target.files[0]
         const formData = new FormData()
         formData.append('image', file)
@@ -77,10 +80,15 @@ const ProductEditScreen = ({ match, history }) => {
             setUploading(false)
 
         } catch (error) {
-            console.error(error)
+            setMessage(error.response.data.message)
             setUploading(false)
         }
     }
+
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+    };
 
 
     const submitHandler = (e) => {
@@ -105,99 +113,156 @@ const ProductEditScreen = ({ match, history }) => {
                 : error ?
                     <Alert type="danger"><Link to="/admin/products" className="btn btn-primary btn-sm btn-stable-hover btn-in-alert go-back"><i class="fas fa-arrow-left"></i> Go Back</Link>{error}</Alert>
                     : (
-                        <section className="container user-edit">
-                            <Link to="/admin/products" className="btn btn-primary go-back"><i class="fas fa-arrow-left"></i>Go Back</Link>
-                            <form className="form" onSubmit={(e) => submitHandler(e)}>
-                                <h3 className="form-heading">Edit Product</h3>
-                                {loadingUpdate && <Spinner />}
-                                {errorUpdate && <Alert type="danger" >{errorUpdate}</Alert>}
-                                <label className="form-label">Name</label>
-                                <input
-                                    className="form-input"
-                                    type="name"
-                                    name="name"
-                                    placeholder="Enter name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                                <label className="form-label">Price</label>
-                                <input
-                                    className="form-input"
-                                    type="number"
-                                    name="price"
-                                    value={price}
-                                    min="0"
-                                    onChange={(e) => setPrice(e.target.value)}
-                                />
-                                <label className="form-label">
-                                    <span>Image</span>
+                        <section className="product-edit container">
+                            <div className="main-content">
+                                <Link to="/admin/products" className="btn btn-primary go-back"><i class="fas fa-arrow-left"></i>Go Back</Link>
+                                <form className="form" onSubmit={(e) => submitHandler(e)}>
+                                    <h3 className="form-heading">Edit Product</h3>
+                                    {loadingUpdate && <Spinner />}
+                                    {errorUpdate && <Alert type="danger" >{errorUpdate}</Alert>}
+                                    <label className="form-label">Name</label>
                                     <input
                                         className="form-input"
-                                        type="text"
-                                        name="image"
-                                        placeholder="Enter image url"
-                                        value={image}
-                                        onChange={(e) => setImage(e.target.value)}
+                                        type="name"
+                                        name="name"
+                                        placeholder="Enter name"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
                                     />
-                                </label>
-                                <label className="form-label">
-                                    <span>Upload Image: </span>
-                                    <input
-                                        className="form-input"
-                                        type="file"
-                                        id="image-file"
-                                        onChange={uploadFileHandler}
-                                    />
-                                </label>
-                                {uploading && <Spinner />}
-                                <label className="form-label">
-                                    <span>Brand</span>
-                                    <input
-                                        className="form-input"
-                                        type="text"
-                                        name="brand"
-                                        placeholder="Enter brand"
-                                        value={brand}
-                                        onChange={(e) => setBrand(e.target.value)}
-                                    />
-                                </label>
-                                <label className="form-label">
-                                    <span>Count In Stock</span>
+                                    <label className="form-label">Price</label>
                                     <input
                                         className="form-input"
                                         type="number"
-                                        name="countInStock"
+                                        name="price"
+                                        value={price}
                                         min="0"
-                                        value={countInStock}
-                                        onChange={(e) => setCountInStock(e.target.value)}
+                                        onChange={(e) => setPrice(e.target.value)}
                                     />
-                                </label>
-                                <label className="form-label">
-                                    <span>Category</span>
-                                    <input
-                                        className="form-input"
-                                        type="text"
-                                        name="category"
-                                        placeholder="Enter category"
-                                        value={category}
-                                        onChange={(e) => setCategory(e.target.value)}
-                                    />
-                                </label>
-                                <label className="form-label">
-                                    <span>Description</span>
-                                    <input
-                                        className="form-input"
-                                        type="text"
-                                        name="description"
-                                        placeholder="Enter description"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                </label>
-                                <span>
-                                    <button className="form-submit btn btn-dark" type="submit">Update</button>
-                                </span></form>
+                                    <label className="form-label">
+                                        <span>Image</span>
+                                        <input
+                                            className="form-input"
+                                            type="text"
+                                            name="image"
+                                            placeholder="Enter image url"
+                                            value={image}
+                                            onChange={(e) => setImage(e.target.value)}
+                                        />
+                                    </label>
+                                    <label className="form-label">
+                                        <span>Upload Image: </span>
+                                        <input
+                                            className="form-input"
+                                            type="file"
+                                            id="image-file"
+                                            onChange={uploadFileHandler}
+                                        />
+                                    </label>
+                                    {uploading && <Spinner />}
+                                    {message && <Alert type='danger'>{message}</Alert>}
+                                    <label className="form-label">
+                                        <span>Brand</span>
+                                        <input
+                                            className="form-input"
+                                            type="text"
+                                            name="brand"
+                                            placeholder="Enter brand"
+                                            value={brand}
+                                            onChange={(e) => setBrand(e.target.value)}
+                                        />
+                                    </label>
+                                    <label className="form-label">
+                                        <span>Count In Stock</span>
+                                        <input
+                                            className="form-input"
+                                            type="number"
+                                            name="countInStock"
+                                            min="0"
+                                            value={countInStock}
+                                            onChange={(e) => setCountInStock(e.target.value)}
+                                        />
+                                    </label>
+                                    <label className="form-label">
+                                        <span>Category</span>
+                                        <div className="category-radio">
+                                            <label className="form-label">
+                                                <input
+                                                    id="clothing"
+                                                    value="clothing"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Clothing</span>
+                                            </label>
+                                            <label className="form-label">
+                                                <input
+                                                    id="books"
+                                                    value="books"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Books</span>
+                                            </label>
+                                            <label className="form-label">
+                                                <input
+                                                    id="homedecor"
+                                                    value="homedecor"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Home Decor</span>
+                                            </label>
+                                            <label className="form-label">
+                                                <input
+                                                    id="toys"
+                                                    value="toys"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Toys</span>
+                                            </label>
+                                            <label className="form-label">
+                                                <input
+                                                    id="bodycare"
+                                                    value="bodycare"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Body Care</span>
+                                            </label>
+                                            <label className="form-label">
+                                                <input
+                                                    id="tech"
+                                                    value="tech"
+                                                    name="category"
+                                                    type="radio"
+                                                    onChange={handleCategoryChange}
+                                                />
+                                                <span>Tech</span>
+                                            </label>
+                                        </div>
+                                    </label>
+                                    <label className="form-label">
+                                        <span>Description</span>
+                                        <textarea
+                                            className="form-input"
+                                            name="description"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            rows="5"
+                                            style={{ resize: "none" }}
+                                        ></textarea>
+                                    </label>
 
+                                    <span>
+                                        <button className="form-submit btn btn-dark" type="submit">Update</button>
+                                    </span></form>
+                            </div>
                         </section>
                     )}
 

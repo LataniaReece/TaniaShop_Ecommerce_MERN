@@ -1,0 +1,24 @@
+     <ul>
+                <Route render={({ history }) => <SearchBox history={history} />} />
+                <Dropdown
+                    type="category"
+                    sideNavOpen={sideNavOpen}
+                />
+
+                {
+                    userInfo.isAdmin && <Dropdown
+                        type="admin"
+                        sideNavOpen={sideNavOpen}
+                    />
+
+                }
+                {
+                    userInfo ? <Dropdown
+                        type="account"
+                        sideNavOpen={sideNavOpen}
+                    /> : <li><Link to="/auth" onClick={() => dispatch({ type: TOGGLE_SIDENAV })}>Sign In</Link></li>
+
+                }
+                <li><Link to="/cart" onClick={closeSidenavHandler}>Cart</Link></li>
+            </ul>
+            <div className="close-sidenav" onClick={closeSidenavHandler}><i className="fas fa-times"></i></div>

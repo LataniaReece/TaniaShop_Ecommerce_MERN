@@ -23,7 +23,7 @@ const AuthScreen = ({ history, location }) => {
     }, [history, loginUserInfo, registerUserInfo, redirect])
 
     return (
-        <section className="container extend-height auth-forms general-form">
+        <section className="extend-height auth-forms general-form container main-content">
 
             { loginLoading || registerLoading ? (
                 <Spinner />

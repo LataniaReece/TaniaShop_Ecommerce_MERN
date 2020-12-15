@@ -1,6 +1,9 @@
 import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
 
+const pageSize = 12
+
+
 // @desc    Auth User and Get Token
 // @route   GET /api/users/login
 // @access  Public
@@ -146,7 +149,6 @@ export const updateUserProfile = async (req, res) => {
 // @route   GET /api/users
 // @access  Private/Admin
 export const getUsers = async (req, res) => {
-    const pageSize = 2
     const page = Number(req.query.pageNumber) || 1
 
     try {

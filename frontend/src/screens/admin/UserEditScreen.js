@@ -56,50 +56,52 @@ const UserEditScreen = ({ match, history }) => {
 
 
     return (
-        <section className="container user-edit">
-            <Link to="/admin/users" className="btn btn-info go-back">Go Back</Link>
-            {user && (
-                <>
-                    {loading && <Spinner />}
-                    {error && <Alert type="danger">{error}</Alert>}
-                    <form className="form" onSubmit={(e) => submitHandler(e)}>
-                        <h3 className="form-heading">Edit User</h3>
-                        {loadingUpdate && <Spinner />}
-                        {errorUpdate && <Alert type="danger">{errorUpdate}</Alert>}
-                        <label className="form-label">Name</label>
-                        <input
-                            className="form-input"
-                            type="name"
-                            name="name"
-                            placeholder="Enter name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        <label className="form-label">Email Address</label>
-                        <input
-                            className="form-input"
-                            type="email"
-                            name="email"
-                            placeholder="Enter Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <label className="form-label checkbox">
-                            <span>Is Admin?</span>
+        <section className="user-edit container">
+            <div className="main-content">
+                <Link to="/admin/users" className="btn btn-info go-back">Go Back</Link>
+                {user && (
+                    <>
+                        {loading && <Spinner />}
+                        {error && <Alert type="danger">{error}</Alert>}
+                        <form className="form" onSubmit={(e) => submitHandler(e)}>
+                            <h3 className="form-heading">Edit User</h3>
+                            {loadingUpdate && <Spinner />}
+                            {errorUpdate && <Alert type="danger">{errorUpdate}</Alert>}
+                            <label className="form-label">Name</label>
                             <input
                                 className="form-input"
-                                type="checkbox"
-                                name="isAdmin"
-                                checked={isAdmin}
-                                onChange={(e) => setIsAdmin(e.target.checked)}
+                                type="name"
+                                name="name"
+                                placeholder="Enter name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
-                        </label>
-                        <span>
-                            <button className="form-submit btn btn-dark" type="submit">Update</button>
-                        </span></form>
-                </>
-            )
-            }
+                            <label className="form-label">Email Address</label>
+                            <input
+                                className="form-input"
+                                type="email"
+                                name="email"
+                                placeholder="Enter Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <label className="form-label checkbox">
+                                <span>Is Admin?</span>
+                                <input
+                                    className="form-input"
+                                    type="checkbox"
+                                    name="isAdmin"
+                                    checked={isAdmin}
+                                    onChange={(e) => setIsAdmin(e.target.checked)}
+                                />
+                            </label>
+                            <span>
+                                <button className="form-submit btn btn-dark" type="submit">Update</button>
+                            </span></form>
+                    </>
+                )
+                }
+            </div>
         </section>
 
     )

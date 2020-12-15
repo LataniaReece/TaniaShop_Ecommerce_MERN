@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     },
 })
 
-function checkFileType(file, cb) {
+function checkFileType(req, file, cb) {
     const filetypes = /jpg|jpeg|png/
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
     const mimetype = filetypes.test(file.mimetype)
@@ -23,20 +23,26 @@ function checkFileType(file, cb) {
     if (extname && mimetype) {
         return cb(null, true)
     } else {
-        cb('Images only!')
+        req.fileValidationError = 'Only jpg, jpeg or png images can be uploaded!'
+        return cb(null, false, req.fileValidationError)
     }
 }
 
 const upload = multer({
     storage,
     fileFilter: function (req, file, cb) {
-        checkFileType(file, cb)
+        checkFileType(req, file, cb)
     },
 })
 
-router.post('/', upload.single('image'), (req, res) => {
-    const formattedPath = `/${req.file.path}`.replace(/\\/g, "/")
-    res.send(formattedPath)
+router.post('/', upload.single('image'), async (req, res) => {
+
+    if (req.fileValidationError) {
+        return res.status(404).json({ message: req.fileValidationError })
+    } else {
+        const formattedPath = `/${req.file.path}`.replace(/\\/g, "/")
+        res.send(formattedPath)
+    }
 })
 
 export default router

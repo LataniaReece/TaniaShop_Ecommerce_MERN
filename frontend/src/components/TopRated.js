@@ -19,19 +19,26 @@ const TopRated = () => {
 
     }, [dispatch])
 
+
+
     return (
 
-        <section className="product-list container">
-            <div className="header-container">
-                <h3 className="header">Top Rated</h3>
-                <Link to="/products" className="btn btn-primary" >See All Items</Link>
-            </div>
-            {loading && <Spinner />}
-            {error && <Alert type="danger">{error}</Alert>}
-            <ProductList
-                products={products}
-            />
-        </section>
+        <>
+            { loading ? <Spinner /> :
+                error ? <Alert type="danger">{error}</Alert> :
+                    <section className="product-list container">
+                        <div className="main-content" style={{ padding: "30px 0" }}>
+                            <div className="header-container">
+                                <h3 className="header">Top Rated</h3>
+                                <Link to="/products" className="btn btn-primary" >See All Items</Link>
+                            </div>
+                            <ProductList
+                                products={products}
+                            />
+                        </div>
+                    </section>
+            }
+        </>
     )
 }
 

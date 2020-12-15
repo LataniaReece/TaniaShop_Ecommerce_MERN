@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const NewlyAdded = () => {
     return (
-        <section className="newly-added container">
+        <section className="newly-added" style={{ width: "100%" }} >
             <div className="text">
                 <h2>New</h2>
                 <h3>Arrivals</h3>

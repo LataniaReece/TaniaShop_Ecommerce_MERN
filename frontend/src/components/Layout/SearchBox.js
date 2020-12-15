@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './SearchBox.css'
 
 const SearchBox = ({ history }) => {
     const [keyword, setKeyword] = useState('')

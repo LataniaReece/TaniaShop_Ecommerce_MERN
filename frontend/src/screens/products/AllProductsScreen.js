@@ -27,20 +27,22 @@ const AllProductsScreen = ({ match }) => {
         <>
             {keyword ? <Meta title='Search Products' /> : <Meta title="All Products" />}
             <section className="product-list container">
-                <div className="action-header">
-                    <Link to="/" className="btn btn-primary btn-stable-hover go-back"><i class="fas fa-arrow-left"></i>Go Back</Link>
-                </div>
+                <div className="main-content">
+                    <div className="action-header">
+                        <Link to="/" className="btn btn-primary btn-stable-hover go-back"><i class="fas fa-arrow-left"></i>Go Back</Link>
+                    </div>
 
-                <h3 className="header">{keyword ? `Search Results: ${keyword}` : 'All Products'}</h3>
-                {loading && <Spinner />}
-                {error && <Alert type="danger">{error}</Alert>}
-                <ProductList
-                    keyword={keyword}
-                    pageNumber={pageNumber}
-                    pages={pages}
-                    page={page}
-                    products={products}
-                />
+                    <h3 className="header">{keyword ? `Search Results: ${keyword}` : 'All Products'}</h3>
+                    {loading && <Spinner />}
+                    {error && <Alert type="danger">{error}</Alert>}
+                    <ProductList
+                        keyword={keyword}
+                        pageNumber={pageNumber}
+                        pages={pages}
+                        page={page}
+                        products={products}
+                    />
+                </div>
             </section>
         </>
     )

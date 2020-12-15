@@ -1,5 +1,8 @@
 import Order from '../models/orderModel.js'
 import mongoose from 'mongoose'
+
+const pageSize = 12
+
 // @desc    Create new order 
 // @route   POST /api/orders
 // @access  Private
@@ -102,8 +105,6 @@ export const getMyOrders = async (req, res) => {
 // @route   GET /api/orders
 // @access  Private/Admin
 export const getOrders = async (req, res) => {
-
-    const pageSize = 2
     const page = Number(req.query.pageNumber) || 1
 
     try {

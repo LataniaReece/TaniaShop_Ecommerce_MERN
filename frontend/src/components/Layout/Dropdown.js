@@ -5,9 +5,10 @@ import { AccountItems } from '../componentsData/AccountItems';
 import { CategoryItems } from '../componentsData/CategoryItems';
 import { logout } from '../../actions/userActions'
 import { AdminItems } from '../componentsData/AdminItems';
+import { TOGGLE_SIDENAV } from '../../actions/actionTypes/browserTypes';
 
 
-function Dropdown({ type, label, sideNavOpen, toggleSideNav }) {
+function Dropdown({ type, label, sideNavOpen }) {
     const [dropdown, setDropdown] = useState(false)
 
     const dispatch = useDispatch()
@@ -33,7 +34,6 @@ function Dropdown({ type, label, sideNavOpen, toggleSideNav }) {
             setDropdown(false);
         } else {
             setDropdown(true);
-            console.log(`Hello ${label}`)
         }
     };
 
@@ -58,7 +58,7 @@ function Dropdown({ type, label, sideNavOpen, toggleSideNav }) {
                     return <li key={index}>
                         <Link
                             to={item.path}
-                            onClick={item.title === "Log Out" ? () => logoutHandler() : () => dispatch(toggleSideNav())}>
+                            onClick={item.title === "Log Out" ? () => logoutHandler() : () => dispatch({ type: TOGGLE_SIDENAV })}>
                             {item.title}
                         </Link>
                     </li>

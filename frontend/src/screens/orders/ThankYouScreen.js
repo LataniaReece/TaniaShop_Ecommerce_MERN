@@ -28,21 +28,19 @@ const ThankYouScreen = ({ match }) => {
                     (
                         <>
                             <Meta title='Thank You' />
-                            <section class="thank-you">
-                                <div class="text">
-                                    <p class="order-number"><strong>Order #:</strong> {order._id}</p>
-                                    <h1 class="heading">Thank you for your order!</h1>
-                                    <p class="info">You will receive a <strong>confirmation email</strong> as well as an <strong>email when your
-                        order has shipped</strong>.</p>
-                                    <img src="https://images.unsplash.com/photo-1502355984-b735cb2550ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                        alt="" />
-                                    <div className="actions">
-                                        <Link to="/" className="btn btn-dark">Continue Shopping</Link>
-                                        <Link to="/account" className="btn btn-dark">View My Orders</Link>
+                            <section class="thank-you container">
+                                <div className="main-content">
+                                    <div class="text">
+                                        <p class="order-number"><strong>Order #:</strong> {order._id}</p>
+                                        <h1 class="heading">Thank you for your order!</h1>
+                                        <img src="https://images.unsplash.com/photo-1502355984-b735cb2550ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                            alt="" />
+                                        <div className="actions">
+                                            <Link to="/" className="btn btn-dark btn-stable-hover">Continue Shopping</Link>
+                                            <Link to="/account" className="btn btn-dark btn-stable-hover">View My Orders</Link>
+                                        </div>
                                     </div>
                                 </div>
-
-
                             </section>
                         </>
                     )

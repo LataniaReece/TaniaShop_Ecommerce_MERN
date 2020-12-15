@@ -62,11 +62,11 @@ const ProductScreen = ({ match, history }) => {
             {product && (
                 <>
                     <Meta title={product.name} />
-                    <section className="full-product">
-                        <div className="container">
+                    <section className="full-product container">
+                        <div className="main-content">
                             <div className="card">
                                 <div className="card-img">
-                                    <img src={product.image} width="90%" alt="" />
+                                    <img src={product.image} alt="" />
                                 </div>
                                 <div className="card-content">
                                     <h2 className="card-name">{product.name}</h2>
@@ -74,7 +74,7 @@ const ProductScreen = ({ match, history }) => {
                                         value={product.rating}
                                         text={`${product.numReviews} reviews`}
                                     />
-                                    <p className="price"><strong>Price:</strong> {product.price}</p>
+                                    <p className="price"><strong>Price:</strong> ${Number(product.price).toFixed(2)}</p>
                                     <p className="description"><strong>Description:</strong> {product.description}</p>
                                     <p className="stock"><strong>Status: {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</strong></p>
 
@@ -140,9 +140,7 @@ const ProductScreen = ({ match, history }) => {
                                     )}
 
                             </div>
-
                         </div>
-
                     </section>
                 </>
             )}

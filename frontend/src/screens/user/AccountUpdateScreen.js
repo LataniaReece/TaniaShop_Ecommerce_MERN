@@ -60,59 +60,61 @@ const AccountUpdateScreen = ({ history }) => {
         <>
             {userInfo ? (
                 loading ? <Spinner /> : (
-                    <section class="container profile">
-                        <h1 class="header">{userInfo.name.charAt(0).toUpperCase() + userInfo.name.slice(1)}'s Account</h1>
-                        <div class="info">
-                            <AccountNav />
-                            <hr width="1" size="500" />
-                            <div className="edit-profile">
-                                {message && <Alert type="danger">{message}</Alert>}
-                                {userDetailsError && <Alert type="danger">{userDetailsError}</Alert>}
-                                {userUpdateError && <Alert type="danger">{userUpdateError}</Alert>}
-                                {success && <Alert type="success">Profile Updated</Alert>}
-                                <form className="form" onSubmit={submitHandler}>
-                                    <h3 className="form-heading">Update Account</h3>
-                                    <label className="form-label">Name</label>
-                                    <input
-                                        className="form-input"
-                                        type="name"
-                                        name="name"
-                                        placeholder="Enter name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                    <label className="form-label">Email Address</label>
-                                    <input
-                                        className="form-input"
-                                        type="email"
-                                        name="email"
-                                        placeholder="Enter Email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                    <label className="form-label">Password</label>
-                                    <input
-                                        className="form-input"
-                                        type="Password"
-                                        name="password"
-                                        placeholder="Enter Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                    <label className="form-label">Confirm Password</label>
-                                    <input
-                                        className="form-input"
-                                        type="Password"
-                                        name="confirmPassword"
-                                        placeholder="Confirm password"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                    />
-                                    <span>
-                                        <button className="form-submit btn btn-dark" type="submit">Update</button>
-                                    </span></form>
-                            </div>
+                    <section class="profile container">
+                        <div className="main-content">
+                            <h1 class="header">{userInfo.name.charAt(0).toUpperCase() + userInfo.name.slice(1)}'s Account</h1>
+                            <div class="info">
+                                <AccountNav />
+                                <hr width="1" size="500" />
+                                <div className="edit-profile">
+                                    {message && <Alert type="danger">{message}</Alert>}
+                                    {userDetailsError && <Alert type="danger">{userDetailsError}</Alert>}
+                                    {userUpdateError && <Alert type="danger">{userUpdateError}</Alert>}
+                                    {success && <Alert type="success">Profile Updated</Alert>}
+                                    <form className="form" onSubmit={submitHandler}>
+                                        <h3 className="form-heading">Update Account</h3>
+                                        <label className="form-label">Name</label>
+                                        <input
+                                            className="form-input"
+                                            type="name"
+                                            name="name"
+                                            placeholder="Enter name"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                        <label className="form-label">Email Address</label>
+                                        <input
+                                            className="form-input"
+                                            type="email"
+                                            name="email"
+                                            placeholder="Enter Email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                        <label className="form-label">Password</label>
+                                        <input
+                                            className="form-input"
+                                            type="Password"
+                                            name="password"
+                                            placeholder="Enter Password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                        <label className="form-label">Confirm Password</label>
+                                        <input
+                                            className="form-input"
+                                            type="Password"
+                                            name="confirmPassword"
+                                            placeholder="Confirm password"
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                        />
+                                        <span>
+                                            <button className="form-submit btn btn-dark" type="submit">Update</button>
+                                        </span></form>
+                                </div>
 
+                            </div>
                         </div>
                     </section>
                 )

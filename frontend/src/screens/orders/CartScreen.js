@@ -31,22 +31,28 @@ const CartScreen = ({ match, location, history }) => {
         <>
             {
                 cartItems.length === 0 ? (
-                    <Alert type="info"> Your Cart Is empty. <Link to="/" className=" btn btn-sm btn-primary continue-shopping-alert-link">Continue Shopping</Link> </Alert>
+                    <section className="cart-alert container">
+                        <div className="main-content">
+                            <Alert type="info"> Your Cart is empty. <Link to="/" className="alert-link">Continue Shopping</Link> </Alert>
+                        </div>
+                    </section>
                 ) : (
                         <>
                             <Meta title='Cart' />
-                            <section className="container shopping-cart">
-                                <div className="cart-items">
-                                    <h2>Your Bag</h2>
-                                    {cartItems.map(item => {
-                                        return <SmallProductItem cart={true} key={item.productId} item={item} showQty={true} />
-                                    })
-                                    }
-                                </div>
-                                <div className="cart-info">
-                                    <h3 className="subtotal-heading">Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) Items: </h3>
-                                    <h5 className="total-price">${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</h5>
-                                    <button className="btn btn-dark" disabled={cartItems.length === 0} onClick={checkOutHandler}>Proceed To Checkout</button>
+                            <section className=" container">
+                                <div className="main-content shopping-cart">
+                                    <div className="cart-items">
+                                        <h2>Your Bag</h2>
+                                        {cartItems.map(item => {
+                                            return <SmallProductItem cart={true} key={item.productId} item={item} showQty={true} />
+                                        })
+                                        }
+                                    </div>
+                                    <div className="cart-info">
+                                        <h3 className="subtotal-heading">Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) Items: </h3>
+                                        <h5 className="total-price">${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</h5>
+                                        <button className="btn btn-dark" disabled={cartItems.length === 0} onClick={checkOutHandler}>Proceed To Checkout</button>
+                                    </div>
                                 </div>
                             </section>
                         </>

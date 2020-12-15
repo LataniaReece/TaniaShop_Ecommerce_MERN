@@ -46,31 +46,32 @@ const OrderDetailsScreen = ({ match, history }) => {
             {
                 loading ? <Spinner /> :
                     error ? <Alert type="danger">{error}</Alert> : (
-                        <section className="container order-details">
-                            {message && <Alert type="info">{message}</Alert>}
-                            <button onClick={previousPage} className="btn btn-primary go-back"><i class="fas fa-arrow-left"></i>Go Back</button>
-                            <div className="main">
-                                <div className="cart-items">
-                                    <h2><strong>Order #:</strong>{order._id}</h2>
-                                    {order.orderItems.map(item => {
-                                        return <SmallProductItem cart={false} key={item.productId} item={item} showQty={true} />
-                                    })
-                                    }
-                                </div>
-                                <div className="cart-info">
-                                    <h3 className="subtotal-heading">Subtotal ({order.orderItems.reduce((acc, item) => acc + item.qty, 0)}) Items</h3>
-                                    <PriceSummary obj={order} />
-                                    {loadingDeliver && <Spinner />}
-                                    {errorDeliver && <Alert type="info">{errorDeliver}</Alert>}
-                                    {userInfo && userInfo.isAdmin && !order.isDelivered && (
-                                        <button className="btn-dark btn deliver-btn" onClick={deliverHandler}>Mark As Delivered</button>
-                                    )}
-                                    {userInfo && userInfo.isAdmin && order.isDelivered && (
-                                        <button className="btn already-delivered-btn" disabled>Delivered</button>
-                                    )}
+                        <section className="order-details container">
+                            <div className="main-content">
+                                {message && <Alert type="info">{message}</Alert>}
+                                <button onClick={previousPage} className="btn btn-primary go-back"><i class="fas fa-arrow-left"></i>Go Back</button>
+                                <div className="main">
+                                    <div className="cart-items">
+                                        <h2><strong>Order #:</strong>{order._id}</h2>
+                                        {order.orderItems.map(item => {
+                                            return <SmallProductItem cart={false} key={item.productId} item={item} showQty={true} />
+                                        })
+                                        }
+                                    </div>
+                                    <div className="cart-info">
+                                        <h3 className="subtotal-heading">Subtotal ({order.orderItems.reduce((acc, item) => acc + item.qty, 0)}) Items</h3>
+                                        <PriceSummary obj={order} />
+                                        {loadingDeliver && <Spinner />}
+                                        {errorDeliver && <Alert type="info">{errorDeliver}</Alert>}
+                                        {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                                            <button className="btn-dark btn deliver-btn" onClick={deliverHandler}>Mark As Delivered</button>
+                                        )}
+                                        {userInfo && userInfo.isAdmin && order.isDelivered && (
+                                            <button className="btn already-delivered-btn" disabled>Delivered</button>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-
                         </section>
 
                     )

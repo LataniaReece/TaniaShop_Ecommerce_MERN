@@ -27,19 +27,22 @@ const RecentProductsScreen = ({ match }) => {
         <>
             <Meta title="New Arrivals" />
             <section className="product-list container">
-                <div className="action-header">
-                    <Link to="/" className="btn btn-primary go-back btn-stable-hover"><i class="fas fa-arrow-left"></i>Go Back</Link>
-                    <Link to="/products" className="btn btn-primary btn-stable-hover">See All Items</Link>
+                <div className="main-content">
+
+                    <div className="action-header">
+                        <Link to="/" className="btn btn-primary go-back btn-stable-hover"><i class="fas fa-arrow-left"></i>Go Back</Link>
+                        <Link to="/products" className="btn btn-primary btn-stable-hover">See All Items</Link>
+                    </div>
+                    <h3 className="header">New Arrivals</h3>
+                    {loading && <Spinner />}
+                    {error && <Alert type="danger">{error}</Alert>}
+                    <ProductList
+                        products={products}
+                        page={page}
+                        pages={pages}
+                        recent={true}
+                    />
                 </div>
-                <h3 className="header">New Arrivals</h3>
-                {loading && <Spinner />}
-                {error && <Alert type="danger">{error}</Alert>}
-                <ProductList
-                    products={products}
-                    page={page}
-                    pages={pages}
-                    recent={true}
-                />
             </section>
         </>
     )

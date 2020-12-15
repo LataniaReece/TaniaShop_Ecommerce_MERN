@@ -1,0 +1,20 @@
+
+.search-container{
+    min-width: 225px;
+}
+
+.search-container input[type=text] {
+    padding: 6px;
+    font-size: 14px;
+ }
+ 
+.search-container button {
+   padding: 7.3px 10px;
+   font-size: 14px;
+   cursor: pointer;
+   background: #ddd;
+ }
+ 
+ .search-container button:hover {
+   background: #ccc;
+ }

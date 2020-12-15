@@ -2,11 +2,12 @@ import Product from '../models/productModel.js'
 import mongoose from 'mongoose'
 import moment from 'moment'
 
+const pageSize = 12
+
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
 export const getProducts = async (req, res) => {
-    const pageSize = 5
     const page = Number(req.query.pageNumber) || 1
 
     const keyword = req.query.keyword ? {
@@ -36,8 +37,6 @@ export const getProducts = async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 export const getRecentProducts = async (req, res) => {
-
-    const pageSize = 2
     const page = Number(req.query.pageNumber) || 1
 
 
@@ -100,7 +99,6 @@ export const getProductById = async (req, res) => {
 // @route   GET /api/products/category/:category
 // @access  Public
 export const getProductsByCategory = async (req, res) => {
-    const pageSize = 2
     const page = Number(req.query.pageNumber) || 1
 
     try {
@@ -239,6 +237,9 @@ export const createProductReview = async (req, res) => {
                 return res.status(400).json({ message: 'You already reviewed this product!' })
             }
 
+            if (!rating) {
+                return res.status(400).json({ message: 'Please select a rating.' })
+            }
             const review = {
                 name: req.user.name,
                 rating: Number(rating),
@@ -270,7 +271,7 @@ export const createProductReview = async (req, res) => {
 export const getTopRatedProducts = async (req, res) => {
 
     try {
-        const products = await Product.find({}).sort({ rating: -1 }).limit(4)
+        const products = await Product.find({}).sort({ rating: -1 }).limit(pageSize)
 
         if (!products) {
             return res.status(404).json({ message: 'Products Not Found' })
