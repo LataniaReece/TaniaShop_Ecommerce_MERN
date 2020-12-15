@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Alert from '../../components/Layout/Alert'
 import Spinner from '../../components/Layout/Spinner'
 import { getUserDetails, updateUserProfile } from '../../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../../actions/actionTypes/userTypes'
 
 const ProfileUpdateScreen = ({ history }) => {
     const [name, setName] = useState('')
@@ -20,20 +21,21 @@ const ProfileUpdateScreen = ({ history }) => {
     const { userInfo } = userLogin
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
-    const { success, error: userUpdateError } = userUpdateProfile
+    const { success: successUpdate, error: userUpdateError } = userUpdateProfile
 
     useEffect(() => {
         if (!userInfo) {
             history.push('/auth')
         } else {
-            if (!user || !user.name) {
+            if (!user || !user.name || successUpdate) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, userInfo, user])
+    }, [dispatch, history, userInfo, user, successUpdate])
 
     const submitHandler = (e) => {
         e.preventDefault()
