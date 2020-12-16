@@ -7,6 +7,7 @@ const pageSize = 12
 // @route   POST /api/orders
 // @access  Private
 export const createNewOrder = async (req, res) => {
+    console.log(req.body)
     const {
         orderItems,
         shippingAddress,
@@ -53,6 +54,7 @@ export const createNewOrder = async (req, res) => {
         res.status(201).json(createdOrder)
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Server Error' })
     }
 

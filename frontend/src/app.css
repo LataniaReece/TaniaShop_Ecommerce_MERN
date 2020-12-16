@@ -825,15 +825,9 @@ hr.vertical {
 
 .paypal-btn{
   width: 40%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   margin-top: 1rem;
 }
-
-.paypal-btn.hide {
-  display: none;
-}
-
-
 
 .price-breakdown{
    border: 2px solid rgba(0,0,0,0.1);

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../../components/CheckoutSteps'
+import Spinner from '../../components/Layout/Spinner'
 import Alert from '../../components/Layout/Alert'
 import { createOrder } from '../../actions/orderActions'
 import PriceSummary from '../../components/PriceSummary'
@@ -12,8 +13,7 @@ import SmallProductItem from '../../components/SmallProductItem'
 const PlaceOrderScreen = ({ history }) => {
     const [message, setMessage] = useState('')
 
-    const [showPayPalButtons, setShowPayPalButtons] = useState(false)
-    const [payPalPaid, setPayPalPaid] = useState(false)
+    const [paid, setPaid] = useState(false)
     const [payPalPaidAmount, setPayPalPaidAmount] = useState(0)
     const [sdkReady, setSdkReady] = useState(false)
     const [orderButtonEnabled, setOrderButtonEnabled] = useState(false)
@@ -48,12 +48,6 @@ const PlaceOrderScreen = ({ history }) => {
         Number(cart.taxPrice)
     ).toFixed(2)
 
-
-    // Refreshes the page after leaving this screen to avoid paypal problems. This removes sdk script at bottom of page. 
-    useEffect(() => {
-        return () => window.location.reload()
-    }, [])
-
     useEffect(() => {
         if (!userInfo) {
             history.push('/auth?redirect=placeorder')
@@ -64,13 +58,11 @@ const PlaceOrderScreen = ({ history }) => {
         //eslint-disable-next-line
     }, [history, success])
 
-
     const addPayPalScript = async () => {
         const { data: clientId } = await axios.get('http://localhost:5000/api/config/paypal')
         const script = document.createElement('script')
         script.type = 'text/javascript'
         script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
-        console.log(script.src)
         script.async = true
         script.intent = "authorize"
         script.id = "paypal-script"
@@ -80,25 +72,16 @@ const PlaceOrderScreen = ({ history }) => {
         document.body.appendChild(script)
     }
 
-    const payPalSelectedHandler = (payPalValue) => {
-        setPaymentMethod(payPalValue)
-        if (!document.getElementById("paypal-script")) {
-            addPayPalScript()
-        }
-        setShowPayPalButtons(true)
-    }
-
-    const nonPayPalSelectedHandler = (nonPayPalValue) => {
-        setPaymentMethod(nonPayPalValue)
-        setShowPayPalButtons(false)
-    }
+    useEffect(() => {
+        addPayPalScript()
+    }, [])
 
 
     const payPalSuccessPaymentHandler = (paymentResult) => {
-        console.log(paymentResult)
         if (paymentResult.status === "COMPLETED") {
             setPayPalPaidAmount(paymentResult.purchase_units[0].amount.value)
-            setPayPalPaid(true)
+            setPaymentMethod('PayPal')
+            setPaid(true)
             setFinalPaymentResult(paymentResult)
             setOrderButtonEnabled(true)
         } else {
@@ -107,7 +90,6 @@ const PlaceOrderScreen = ({ history }) => {
     }
 
     const placeOrderHandler = () => {
-
         // Create order
         dispatch(createOrder({
             orderItems: cart.cartItems,
@@ -146,41 +128,21 @@ const PlaceOrderScreen = ({ history }) => {
                             <h4 className="section-heading">Select Payment Method</h4>
                             {message ? <Alert type="danger">{message}</Alert> : ''}
                             {
-                                payPalPaid ? (
+                                paid ? (
                                     <div className="paypal-success">
                                         <p className="heading">PayPal Payment Successful: ${payPalPaidAmount}</p>
                                         <p className="info">Please click the Place Order Button ( on the right) to complete your order</p>
                                     </div>
                                 ) : (
-                                        <div className="pay-content">
-                                            <form className="form">
-                                                <label htmlFor="PayPal">PayPal</label>
-                                                <input
-                                                    type="radio"
-                                                    id="PayPal"
-                                                    name="paymentMethod"
-                                                    value="PayPal"
-                                                    onChange={(e) => payPalSelectedHandler(e.target.value)}
+                                        sdkReady ? (
+                                            <div className="paypal-btn">
+                                                <PayPalButton
+                                                    amount={cart.totalPrice}
+                                                    onSuccess={payPalSuccessPaymentHandler}
                                                 />
-                                                <label htmlFor="Stripe">Stripe</label>
-                                                <input
-                                                    type="radio"
-                                                    id="Stripe"
-                                                    name="paymentMethod"
-                                                    value="Stripe"
-                                                    onChange={(e) => nonPayPalSelectedHandler(e.target.value)}
-                                                />
-                                            </form>
-                                            {sdkReady ? (
-                                                <div className={showPayPalButtons ? "paypal-btn" : "paypal-btn hide"}>
-                                                    <PayPalButton
-                                                        amount={cart.totalPrice}
-                                                        onSuccess={payPalSuccessPaymentHandler}
-                                                    />
-                                                </div>
+                                            </div>
 
-                                            ) : ''}
-                                        </div>
+                                        ) : <Spinner />
 
                                     )
                             }
