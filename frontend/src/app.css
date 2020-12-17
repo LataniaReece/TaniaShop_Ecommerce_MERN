@@ -32,7 +32,14 @@ body {
   line-height: 1.6;
   min-width: 750px;
   height: 100%;
-  width: 100%
+  width: 100%;
+  font-size: 120%;
+}
+
+@media screen and (max-width:2000px){
+  body{
+    font-size: 110%;
+  }
 }
 
 .fixed{
@@ -131,10 +138,6 @@ h3{
   font-size: 2.5rem;
   border-bottom: 1px solid #ddd;
   padding-bottom: 0.5rem;
-}
-
-.card-name{
-  font-size: 150%;
 }
 
 
@@ -289,7 +292,7 @@ font-weight: 600;
 
 .product-list .stars i {
 color: #FDCC0D;
-font-size: 0.8rem;
+font-size: 1rem;
 }
 
 .product-list .card-img:hover{
@@ -828,7 +831,7 @@ hr.vertical {
 }
 
 .paypal-btn{
-  width: 40%;
+  width: 400px;
   /* margin: 0 auto; */
   margin-top: 1rem;
 }

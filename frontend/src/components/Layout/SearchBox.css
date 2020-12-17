@@ -1,16 +1,16 @@
 
 .search-container{
-    min-width: 225px;
+    min-width: 250px;
 }
 
 .search-container input[type=text] {
     padding: 6px;
-    font-size: 14px;
+    font-size: 16px;
  }
  
 .search-container button {
    padding: 7.3px 10px;
-   font-size: 14px;
+   font-size: 16px;
    cursor: pointer;
    background: #ddd;
  }
