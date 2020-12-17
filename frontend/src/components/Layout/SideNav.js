@@ -31,20 +31,17 @@ const SideNav = () => {
                 <Route render={({ history }) => <SearchBox history={history} />} />
                 <Dropdown
                     type="category"
-                    sideNavOpen={sideNavOpen}
                 />
 
                 {
                     (userInfo && userInfo.isAdmin) && <Dropdown
                         type="admin"
-                        sideNavOpen={sideNavOpen}
                     />
 
                 }
                 {
                     userInfo ? <Dropdown
                         type="account"
-                        sideNavOpen={sideNavOpen}
                     /> : <li><Link to="/auth" onClick={() => dispatch({ type: TOGGLE_SIDENAV })}>Sign In</Link></li>
 
                 }

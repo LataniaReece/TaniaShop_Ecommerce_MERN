@@ -10,6 +10,9 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
+    const browserState = useSelector(state => state.browserState)
+    const { sideNavOpen } = browserState
+
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
@@ -25,7 +28,9 @@ const Navbar = () => {
                     <div className="navbar__logo"><a href="/">Shop Latania</a></div>
                 </div>
                 <div className="spacer" />
-                <div className="navbar__right-nav">
+
+
+                <div className="navbar__right-nav big-nav">
                     <ul>
 
                         <Route render={({ history }) => <SearchBox history={history} />} />
@@ -46,6 +51,24 @@ const Navbar = () => {
                         <li><Link to="/cart">Cart</Link></li>
                     </ul>
                 </div>
+
+                <div className="navbar__right-nav small-nav">
+                    <ul>
+
+                        {userInfo ? (
+                            <Dropdown
+                                type="account"
+                                label={`${userInfo.name.charAt(0).toUpperCase() + userInfo.name.slice(1)}'s Account`}
+                                spreadNav={true}
+                            />
+
+                        ) : <li><Link to="/auth">Sign In</Link></li>
+                        }
+
+                        <li><Link to="/cart">Cart</Link></li>
+                    </ul>
+                </div>
+
             </nav>
         </header>
     )

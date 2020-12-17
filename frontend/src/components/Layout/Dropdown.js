@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AccountItems } from '../componentsData/AccountItems';
 import { CategoryItems } from '../componentsData/CategoryItems';
 import { logout } from '../../actions/userActions'
@@ -8,10 +8,13 @@ import { AdminItems } from '../componentsData/AdminItems';
 import { TOGGLE_SIDENAV } from '../../actions/actionTypes/browserTypes';
 
 
-function Dropdown({ type, label, sideNavOpen }) {
+function Dropdown({ type, label, spreadNav = false }) {
     const [dropdown, setDropdown] = useState(false)
 
     const dispatch = useDispatch()
+
+    const browserState = useSelector(state => state.browserState)
+    const { sideNavOpen } = browserState
 
     let itemsList
     switch (type) {
@@ -45,6 +48,12 @@ function Dropdown({ type, label, sideNavOpen }) {
         }
     };
 
+    const handleClick = () => {
+        if (sideNavOpen) {
+            dispatch({ type: TOGGLE_SIDENAV })
+        }
+    }
+
     const logoutHandler = () => {
         dispatch(logout())
         setDropdown(false)
@@ -53,12 +62,12 @@ function Dropdown({ type, label, sideNavOpen }) {
     return (
         <>
 
-            { sideNavOpen ? (
+            { (sideNavOpen || spreadNav) ? (
                 itemsList.map((item, index) => {
                     return <li key={index}>
                         <Link
                             to={item.path}
-                            onClick={item.title === "Log Out" ? () => logoutHandler() : () => dispatch({ type: TOGGLE_SIDENAV })}>
+                            onClick={item.title === "Log Out" ? () => logoutHandler() : handleClick}>
                             {item.title}
                         </Link>
                     </li>

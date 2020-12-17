@@ -56,6 +56,15 @@
 }
 
 
+.big-nav{
+  display: block;
+}
+
+.small-nav {
+  display: none;
+}
+
+
 /* Dropdown Button */
 
 .dropbtn i {
@@ -111,8 +120,11 @@
         cursor: pointer;
     }
 
-    .navbar__right-nav{
-        display: none;
+    .small-nav {
+      display: block;
     }
     
+    .big-nav{
+      display: none;
+    }
 }
