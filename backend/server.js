@@ -13,7 +13,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 dotenv.config()
 connectDB()
 const app = express()
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })) // allows receiving of cookies from front-end
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
 
 if (process.env.NODE_ENV === 'development') {

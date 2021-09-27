@@ -5,6 +5,7 @@ import Alert from '../../components/Layout/Alert'
 import Spinner from '../../components/Layout/Spinner'
 import { listMyOrders } from '../../actions/orderActions'
 import { getUserDetails, updateUserProfile } from '../../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../../actions/actionTypes/userTypes'
 
 
 
@@ -34,7 +35,8 @@ const AccountUpdateScreen = ({ history }) => {
         if (!userInfo) {
             history.push('/auth?redirect=account')
         } else {
-            if (!user || !user.name) {
+            if (!user || !user.name || success) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
@@ -43,7 +45,7 @@ const AccountUpdateScreen = ({ history }) => {
         }
 
         dispatch(listMyOrders())
-    }, [dispatch, history, userInfo, user])
+    }, [dispatch, history, userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
